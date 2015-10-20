@@ -1,0 +1,66 @@
+package social;
+
+import java.util.Collection;
+
+
+public class Social {
+
+	public void addPerson(String code, String name, String surname)
+			throws PersonExistsException {
+
+	}
+
+	public String getPerson(String code) throws NoSuchCodeException {
+		return null;
+	}
+
+	public void addFriendship(String codePerson1, String codePerson2)
+			throws NoSuchCodeException {
+	}
+
+	public Collection<String> listOfFriends(String codePerson)
+			throws NoSuchCodeException {
+		return null;
+	}
+
+	public Collection<String> friendsOfFriends(String codePerson)
+			throws NoSuchCodeException {
+		return null;
+	}
+
+	public Collection<String> friendsOfFriendsNoRepitition(String codePerson)
+			throws NoSuchCodeException {
+		return null;
+	}
+
+	public void addGroup(String groupName) {
+	}
+
+	public Collection<String> listOfGroups() {
+		return null;
+	}
+
+	public void addPersonToGroup(String codePerson, String groupName) {
+	}
+
+	public Collection<String> listOfPeopleInGroup(String groupName) {
+		return null;
+	}
+
+	public String personWithLargestNumberOfFriends() {
+		return null;
+	}
+
+	public String personWithMostFriendsOfFriends() {
+		return null;
+	}
+
+	public String largestGroup() {
+		return null;
+	}
+
+	public String personInLargestNumberOfGroups() {
+		return null;
+	}
+
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>02CBI - Programmazione ad Oggetti</title>
+</head>
+<body>
+<h1 style="text-align: center;">Trains Timetable<br>
+</h1>
+Develop an application to manage trains timetable and monitor when trains stop
+in the railway stations.<br>
+All classes MUST be in package "timetable".<br>
+<hr style="width: 100%; height: 2px;">
+<h2>R1 - Define Paths<br>
+</h2>
+The System works with class Timetable.
+<br>
+The first phase defines trains' railway distances.<br>
+The method <span style="font-weight: bold;">createPath() </span>has these
+parameters: the code (e.g. IC2345) and the category; then it creates a <b>Path</b>
+object. Train's category can be "Intercity", "Eurostar",
+"Interregional", or "Regional". The class <span
+ style="font-weight: bold;">Path </span>implements methods <span
+ style="font-weight: bold;">getCode()</span>, and <span
+ style="font-weight: bold;">getCategory()</span>. Trains type can be <i>ordinary</i>
+or <i>extraordinary</i>, and it can be defined and read with methods <span style="font-weight: bold;">setExtraordinary()</span>
+ which has a boolean parameter, and <span style="font-weight: bold;">isExtraordinary()</span> 
+which returns a boolean value. The default value is <i>ordinary</i>.<br>
+It is possible to know all paths dfined in the timetable with method <span style="font-weight: bold;">getPaths()</span> 
+returning a Collection of Path objects.<br>
+Moreover, the method <span
+ style="font-weight: bold;">getPath()</span>  receives a path code abd returns
+the corresponding object.<br>
+<h2>R2 - Train Stops</h2>
+Each Path is made of different Train Stops, each one related to one railway
+station.<br>
+The class Path provides the method <span style="font-weight: bold;">addStop()</span>
+ which has these parameters: name of the railway station, the arrival time in
+hours and minutes; this method returns the corresponding <b>TrainStop</b>
+object.<br>
+Class TrainStop has methods <span style="font-weight: bold;">getStation()</span>,
+<span style="font-weight: bold;">getHour()</span>, <span
+ style="font-weight: bold;">getMinutes()</span>.<br>
+The list of all train stops in a path can be obtained through the method <span style="font-weight: bold;">getTrainStops()</span>
+in class Path: it returns a list of TrainStop objects ordered by arrival time.<br>
+<h2>R3 - Trains</h2>
+Trains follow a predefined path and stop at the railway station at a particular
+moment.<br>
+The class Timetable has a method <span style="font-weight: bold;">newTrain()</span>
+ that, once reived parameters like code, path and the date, returns the new
+Train object created.<br>
+If path code does not correspond to a path defined, then <b>InvalidPath</b>
+exception is generated..<br>
+Clas Train<span style="font-weight: bold;"> </span>has methods <span style="font-weight: bold;">getPath()</span> 
+and <span
+ style="font-weight: bold;">getDate()</span>  to read these information.<br>
+Starting form a Path it is possible to obtain the trains list which have passed
+through this Path, using the method <span style="font-weight: bold;">getTrains()</span>
+ of Path class: this method returns the trains list ordered by date in
+descendant order.<br>
+<h2>R4&nbsp; - Passages</h2>
+A train can pass through a railway station at a certain moment.<br>
+The class Train has method <span style="font-weight: bold;">registerPassage()</span>
+ receiving station name, hour and minutes; this method returns the <b>Passage</b>
+object created.<br>
+If the station name does not correspond to one of the train stops of the path,
+then a <b>InvalidStop</b> exception is generated.<br>
+The class <span style="font-weight: bold;">Passage </span>has methods <span style="font-weight: bold;">getStation()</span>, <span
+ style="font-weight: bold;">getHour()</span>, <span
+ style="font-weight: bold;">getMinutes()</span>.<br>
+Then the method&nbsp;<b> delay()</b> returns the delay in minutes of the train
+with respect to the timetable of the TrainStop.<br>
+<h2>R5&nbsp; - Statistics</h2>
+Class Train allows obtaining some statistics.<br>
+Method <span style="font-weight: bold;">arrived()</span>
+ returns true if&nbsp; the train has stopped at the last railway station.<br>
+Methods <b>maxDelay</b><span style="font-weight: bold;">()</span>,<span
+ style="font-weight: bold;">  minDelay()</span>, <b>totalDelay</b><span
+ style="font-weight: bold;">()</span>  give information on delays.<br>
+Class Path has also methods <b>maxDelay</b><span style="font-weight: bold;">()</span>,<span
+ style="font-weight: bold;">  minDelay()</span>, <b>totalDelay</b><span
+ style="font-weight: bold;">()</span>  which return values related to total
+delays of all trains passed by this path.<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<span style="font-weight: bold;"></span>
+</body>
+</html>

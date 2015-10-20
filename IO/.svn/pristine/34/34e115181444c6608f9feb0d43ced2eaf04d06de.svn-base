@@ -1,0 +1,79 @@
+package examples;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class PriceList {
+
+	public static void main(String[] args) {
+		
+		try {
+			readPrices();
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} catch(NumberFormatException e){
+			System.out.println("Wronr price number: " + e.getMessage());
+		}
+
+	}
+	
+	static List<Item> readPrices() throws IOException{
+		BufferedReader br = new BufferedReader(new FileReader("prices.txt"));
+		LinkedList<Item> res = new LinkedList<Item>();
+//		try{
+			String line;
+			while ( (line=br.readLine())!=null ){
+				
+				try{
+					String[] elements = line.split(";");
+					
+//					String name = elements[0];
+//					
+//					double price = Double.parseDouble(elements[1]);
+//					
+//			//		System.out.println(name + ": " + price);
+//					
+//					Item i = new Item(name,price);
+//					res.add(i);
+					
+					res.add(Item.newItem(elements));
+					
+				}catch(NumberFormatException e){
+					System.out.println("Price format error" + e.getMessage());
+				}
+
+			}
+//		}catch(NumberFormatException e){
+//			System.out.println("Price format error" + e.getMessage());
+//		}
+		br.close();
+		return res;
+	}
+
+	static List<Item> readPricesStream() throws IOException{
+		BufferedReader br = new BufferedReader(new FileReader("prices.txt"));
+		
+		return
+		br.lines()   // Stream<String>
+			.map( line -> line.split(";")) // Stream<String[]>
+//			.forEach( elements -> {
+//				// String[] elements = line.split(";"); // equivelent to map( ... )
+//				String name = elements[0];
+//				double price = Double.parseDouble(elements[1]);
+//				System.out.println(name + ": " + price);
+//			}
+//			)
+			.map(Item::newItem)
+			.collect(Collectors.toList())
+			;
+			
+		
+	}
+}
+
+

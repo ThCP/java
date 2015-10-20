@@ -1,0 +1,4 @@
+Bread;1_2
+Oil;3.5
+Rice;2.1
+Tea;6.7

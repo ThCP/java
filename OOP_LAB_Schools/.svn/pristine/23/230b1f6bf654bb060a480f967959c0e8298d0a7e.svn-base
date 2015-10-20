@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<style type="text/css">
+<!--
+body {
+	margin: 0.5cm;
+	/*
+	font-size: 13px;
+	*/
+	}
+p   {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+    }
+b   {
+	font-family: monospace;
+	color: MidnightBlue;
+	background: #f8f8f8;
+	border-radius: 2pt;
+	padding: 1pt;
+/*
+    font-size=85%;
+	border: 1pt dotted silver;
+*/
+	}
+	
+i   {
+	color: Navy;
+	font-family: monospace;
+	}
+	
+h1  {
+	font-family: sans-serif;
+	text-align: center;
+    line-height: 1.1em;
+	}
+	
+h2  {
+    /*float: left;*/
+    margin-top: 0;
+    padding: 5px 10px 5px 0px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    line-height: 0.8em;
+	color: RoyalBlue;
+	font-family: sans-serif;
+	border-top: 1px dotted gray;
+	}
+table {
+	float: right;
+	margin: 20px;
+	border-collapse:collapse;
+	border-bottom: 1px solid Navy;
+	border-top: 1px solid Navy;
+	}
+td, th  {
+	padding: 1px 5px 1px 5px;
+	}
+tr:nth-child(even) {
+    background-color: PowderBlue;
+    margin: 1pt solid PowderBlue;
+}
+-->
+</style>
+  <title>Lab - Schools</title>
+  <meta name="revision" content="May 7, 2015">
+  <meta name="author" content="Marco Torchiano">
+</head>
+<body>
+<h1 style="text-align: center;">Schools<br>
+</h1>
+Develop an application to allow managing the info about schools in a region.<br>
+The application should allow the entry of information about municipalities, schools, branches, and communities.<br>
+All the classes must be in the package "<b>schools</b>".<br>
+
+
+<h2>R1 - Municipalities and Communities<br>
+</h2>
+The interaction with the system takes place through class <b>Region</b>.
+<br>
+The definition of a community can be performed using the <b>newCommunity()</b>
+method that accepts as arguments the name and a <b>Community.Type</b> value
+indicating whether it is a hill or mountain community.
+<br/>
+The method returns a <b>Community</b> object.
+<p>
+The definition of a new municipality is done with the method <b>newMunicipality</b>
+accepting as arguments the name, the province, the AFcode, the AF description,
+and an optional reference to the <i>Community</i> of belonging.
+<br>
+The method returns a <b>Municipality</b> object.
+<p>
+Both classes offer the getter methods for the data they are initialized with.
+<br>
+The collection of all municipalities and communities
+can be retrieve using the methods <b>getMunicipalities()</b>
+and <b>getCommunities()</b> respectively.
+<br>
+In addition, given a <i>Municipality</i> the relative community
+can be retrieved using the method <b>getCommunity()</b>, 
+that returns an <i>Optional&lt;Community&gt;</i>,
+which is empty if the municipality does not belong to
+any community. Viceversa, given a <i>Community</i> the collection
+of municipalities can be obtained with method <b>getMunicipalities()</b>. 
+
+
+<h2>R2 - Schools and branches</h2>
+
+Schools are defined using the method <b>newSchool()</b>
+that accepts as arguments, the name, the state code (unique),
+the school grade, the description, the management type, and the
+legal position.  
+<br/>
+The method returns an object of class <b>School</b>, which provides
+the required getter methods.
+<p>
+Schools can have one or more branches defines by means of
+<b>newBranch()</b> that accepts as arguments the unique regional code,
+the type of the branch, a reference to the <i>Muncipality</i> where the
+branch is located, the address, the CAP code, the locality, the telephone,
+the fax, and a reference to the School the branch belongs to.
+<br/>
+The method returns a <b>Branch</b> object.
+<p>
+The class <i>Branch</i> provides the getter methods relative to the
+parameter used to create it; in particular it offers the methods
+<b>getMunicipality()</b>  and <b>getSchool()</b> to retrieve 
+the municipality where it is located and the school it belongs to.
+<p>
+The class <i>School</i> provides the method <b>getBranches</b>
+to retrieve the collection of branches.
+
+<h2>R3 - Reading from CSV</h2>
+It is possible, using method <b>readData()</b>, to read the information
+relative to the above classes from a URL, passed as argument.
+<p>
+The information relative to the schools of a region are defined within a file
+with  <a href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> encoding.
+
+that is strutcture according to the following columns that contain information
+about municipalities, communities, schools, and branches:
+ p>
+<table style="float:none;font-family:sans-serif;">
+<tr><th># <th>Column		<th colspan="4">Information for classes 
+<tr><th><th>						<th><b>Municipality</b><th><b>Community</b><th><b>School</b><th><b>Branch</b><th>Translation
+<tr><td>0 <td><i>Provincia</i>					<td align="center">X	  <td>	             <td>	   <td>		<td>province
+<tr><td>1 <td><i>Comune</i>					<td align="center">X	  <td>	             <td>	   <td>			<td>municipality
+<tr><td>2 <td><i>Grado Scolastico</i>			<td>	  <td>	             <td align="center">X	   <td>		<td>school grade
+<tr><td>3 <td><i>Descrizione School</i>		<td>	  <td>	             <td align="center">X	   <td>			<td>description
+<tr><td>4 <td><i>Cod School</i>				<td>	  <td>	             <td>	   <td align="center">X			<td>regional branch code
+<tr><td>5 <td><i>Cod M.P.I.</i>				<td>	  <td>	             <td align="center">X	   <td>			<td>state school code
+<tr><td>6 <td><i>Denominazione School</i>		<td>	  <td>	             <td align="center">X	   <td>		<td>school name
+<tr><td>7 <td><i>Tipo Unita Scolastica</i>		<td>	  <td>	             <td>	   <td align="center">X		<td>branch type
+<tr><td>8 <td><i>Indirizzo e n. civico</i>		<td>	  <td>	             <td>	   <td align="center">X		<td>address
+<tr><td>9 <td><i>C.A.P.</i>					<td>	  <td>	             <td>	   <td align="center">X			<td>CAP code / ZIP code
+<tr><td>10<td><i>Frazione o Localit&agrave;</i><td>	  <td>	             <td>	   <td align="center">X			<td>locality
+<tr><td>11<td><i>Fax</i>						<td>	  <td>	             <td>	   <td align="center">X		<td>
+<tr><td>12<td><i>Telefono</i>					<td>	  <td>	             <td>	   <td align="center">X		<td>telephone
+<tr><td>13<td><i>Comunita Collinare</i>		<td align="center">X	  <td align="center">X	       <td>	   <td> <td>Hill community
+<tr><td>14<td><i>Comunita Montana</i>			<td align="center">X	  <td align="center">X	   <td>	   <td>	<td>Mountain community
+<tr><td>15<td><i>Ambito Funzionale</i>			<td align="center">X	  <td>	             <td>	   <td>		<td>AF code
+<tr><td>16<td><i>Denominazione Ambito Funzionale</i><td align="center">X  <td>	             <td>	   <td>		<td>AF description
+<tr><td>17<td><i>Tipo di Gestione</i>			<td>	  <td>	             <td align="center">X	   <td>		<td>Management type
+<tr><td>18<td><i>Posizione Giuridica</i>			<td>	  <td>	             <td align="center">X	   <td>	<td>legal position
+<tr><td>19<td><i>Paritaria/Non Paritaria</i>		<td>	  <td>	             <td align="center">X	   <td>	<td>
+<!--
+<tr><td>20<td><i>Anno</i>						<td>	  <td>	             <td>	   <td>
+-->
+</table>
+<p>
+The file contains a row for each branch, therefore the information about schools, communities, and municipalities
+are repeated more than once.
+<p>
+The columns<i>Community Collinare</i> and <i>Community Montana</i> can contain the name of the community
+or the special values <i>"NESSUNA COMUNITA' COLLINARE"</i> and <i>"NESSUNA COMUNITA' MONTANA"</i> 
+respectively, when the municipality does not belong to any community.
+<p>
+The column <i>Grado Scolastico</i> contains both a number and a description (e.g. <i>"2 - School primaria"</i>)
+to create a <i>School</i> object, only the number before  '-' need to extracted.
+
+<p>
+The date relative to the Piedmont regional schools is available at the URL:
+<i><a href="http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=252"
+>http://www.dati.piemonte.it/catalogodati/scarica.html?idallegato=252</a></i>.
+ 
+<p>
+<span style="text-weight:bold;>Hints:</span>:
+<br>Community
+While reading the file, for each row, it is required, before creating a new branch,
+to crate first the community (if any and if not present), then the municipality
+(if not yet present), and the school (if not yet present).
+<p>
+For reading the CSV content, the recommended approach is
+using the class <i>it.polito.utility.files.CsvParser</i>
+already provided within the project in a separate jar.
+<p>
+Using that class, for instance the code to count the number
+of branches per province (without creating the relative objects)
+is the following one:
+<pre>
+		CsvParser parser = CsvParser.createInstance();
+		Map<String,Long> cont =
+		parser.openNamedRowsUrl(urlDatiPiemonte)
+		.collect(groupingBy( row -> row.get("Provincia"),counting()))
+		;
+</pre>
+
+The full documentation of the class is available at the URL;
+<i><a href="http://softeng.polito.it/courses/02JEY/doc/it/polito/utility/files/CsvParser.html"
+>http://softeng.polito.it/courses/02JEY/doc/it/polito/utility/files/CsvParser.html</a>.</i>
+
+<h2>R4 - Queries</h2>
+<p>
+The method <b>countSchoolsPerDescription()</b> returns a map containing
+as key the school description and as value the number of schools
+corresponding to that description.
+<p>
+The method <b>countBranchesPerMunicipality()</b> returns a map containing
+as key the name of the municipality and as value the number
+of branches belonging to it.
+<p>
+The method <b>averageBranchesPerMunicipality()</b> returns a map containing as key the name of the province
+and as value the average number of branches in the municipalities of that province.
+<p>
+The method <b>countSchoolsPerMunicipality()</b> returns a list of strings, each with the format 
+"<i>### - XXXXXX</i>" where
+<i>###</i> represents the number of schools and <i>XXXXXX</i> represents the name of the municipality.
+<p>
+The method <b>countSchoolsPerCommunity()</b> returns a list of strings, each with the format 
+"<i>### - XXXXXX</i>" where
+<i>###</i> represents the number of schools and <i>XXXXXX</i> represents the name of the community.
+sorted in decreasing ordered by number of schools.
+Only the schools having at least a branch in a municipality that belongs to a community.
+
+<h4>Hints</h4>
+
+When sorting elements in reverse order, based on an attribute,
+it is better to use the form <i>comparing(Element::getValue,reverseOrder())</i>
+than <i>comparing(Element::getValue).reversed()</i> because this latter
+form is more difficult for the compiler to correctly infer the types.
+
+
+<b></b>
+</body>
+</html>
